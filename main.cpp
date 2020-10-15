@@ -1,63 +1,42 @@
 #include <iostream>
-
-int fibonacci_iterative(int index) {
-    int a = 0;
-    int b = 1;
-
-    if (index < 2) {
-        return index;
-    }
-
-    for (int i = 1; i < index; i++) {
-        int tmp = a + b;
-        a = b;
-        b = tmp;
-    }
-
-    return  b;
-}
-
-int fibonacci_recursive(int index) {
-    if (index < 2) {
-        return index;
-    }
-
-    return fibonacci_recursive(index-2) + fibonacci_recursive(index -1);
-}
-
-// 5
-// 3 + 4
-// (1 + 2) + (2 + 3)
-// (1 + (0 + 1)) + ((0 + 1) + (1 + 2))
-// (1 + (0 + 1)) + ((0 + 1) + (1 + (0 + 1)))
-
-int read_int() {
-    std::cout << "Please introduce a number:" << std::endl;
-
-    int n;
-    std::cin >> n;
-
-    return n;
-}
-
-// 1 - Read an integer - nth element of the fibonacci sequence
-// 2 - Calculate fibonacci - iteratively
-// 2b - Calcualte fibonacci - recursively
-// 3 - Print the number
-
-// 0, 1, 1, 2, 3, 5, 8, 13, ...
-//                   ^  ^
+#include <fstream>
+#include <string>
 
 int main() {
-    int index = read_int();
 
-    int result_iterative = fibonacci_iterative(index);
+    // 1- Create the file stream
+    // 2- While the file is open, you can write
+    // 3- Close the file in order to keep the changes
 
-    std::cout << "The result with iteration is: " << result_iterative << std::endl;
+    std::ofstream file;
+    file.open("new_file.txt");
+    file << "This is the first line\n";
+    file << "This is the second line\n";
+    file << "This is the third line\n";
+    file.close();
 
-    int result_recursive = fibonacci_recursive(index);
+    // 1- Open the file stream
+    // 2- While the file is open, you can read
+    // 3- Print the contents of the file
+    // 4- Close the file in order to keep the changes
 
-    std::cout << "The result with recursion is: " << result_recursive << std::endl;
+    std::ifstream new_file("new_file.txt");
+
+    if (new_file.is_open()) {
+        // 1- Define a variable that will store each line
+        // 2- While there lines to read, we will read them, and store them in our temporary variable
+
+        std::string line;
+
+        while(getline(new_file, line)) {
+            std::cout << line << std::endl;
+        }
+
+        new_file.close();
+
+    } else {
+        std::cout << "There was a problem opening the file";
+    }
 
     return 0;
 }
