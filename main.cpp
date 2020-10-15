@@ -4,11 +4,11 @@ int fibonacci_iterative(int index) {
     int a = 0;
     int b = 1;
 
-    if (index == 0 || index == 1) {
+    if (index < 2) {
         return index;
     }
 
-    for (int i = 2; i < index; i++) {
+    for (int i = 1; i < index; i++) {
         int tmp = a + b;
         a = b;
         b = tmp;
@@ -16,6 +16,20 @@ int fibonacci_iterative(int index) {
 
     return  b;
 }
+
+int fibonacci_recursive(int index) {
+    if (index < 2) {
+        return index;
+    }
+
+    return fibonacci_recursive(index-2) + fibonacci_recursive(index -1);
+}
+
+// 5
+// 3 + 4
+// (1 + 2) + (2 + 3)
+// (1 + (0 + 1)) + ((0 + 1) + (1 + 2))
+// (1 + (0 + 1)) + ((0 + 1) + (1 + (0 + 1)))
 
 int read_int() {
     std::cout << "Please introduce a number:" << std::endl;
@@ -37,9 +51,13 @@ int read_int() {
 int main() {
     int index = read_int();
 
-    int result = fibonacci_iterative(index);
+    int result_iterative = fibonacci_iterative(index);
 
-    std::cout << "The result is: " << result << std::endl;
+    std::cout << "The result with iteration is: " << result_iterative << std::endl;
+
+    int result_recursive = fibonacci_recursive(index);
+
+    std::cout << "The result with recursion is: " << result_recursive << std::endl;
 
     return 0;
 }
